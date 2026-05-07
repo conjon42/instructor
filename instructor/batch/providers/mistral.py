@@ -27,7 +27,10 @@ class MistralProvider(BatchProvider):
     ) -> str:
         """Submit Mistral batch job"""
         try:
-            from mistralai import Mistral
+            try:
+                from mistralai import Mistral
+            except ImportError:
+                from mistralai.client import Mistral
 
             client = Mistral(api_key=os.getenv("MISTRAL_API_KEY", ""))
 
@@ -101,7 +104,11 @@ class MistralProvider(BatchProvider):
     def get_status(self, batch_id: str) -> dict[str, Any]:
         """Get Mistral batch status"""
         try:
-            from mistralai import Mistral
+            try:
+                from mistralai import Mistral
+            except ImportError:
+                from mistralai.client import Mistral
+
 
             client = Mistral(api_key=os.getenv("MISTRAL_API_KEY", ""))
             batch = client.batch.jobs.get(job_id=batch_id)
@@ -127,7 +134,11 @@ class MistralProvider(BatchProvider):
     def retrieve_results(self, batch_id: str) -> str:
         """Retrieve Mistral batch results"""
         try:
-            from mistralai import Mistral
+            try:
+                from mistralai import Mistral
+            except ImportError:
+                from mistralai.client import Mistral
+
 
             client = Mistral(api_key=os.getenv("MISTRAL_API_KEY", ""))
             batch = client.batch.jobs.get(job_id=batch_id)
@@ -164,7 +175,11 @@ class MistralProvider(BatchProvider):
     def download_results(self, batch_id: str, file_path: str) -> None:
         """Download Mistral batch results to a file"""
         try:
-            from mistralai import Mistral
+            try:
+                from mistralai import Mistral
+            except ImportError:
+                from mistralai.client import Mistral
+
 
             client = Mistral(api_key=os.getenv("MISTRAL_API_KEY", ""))
             batch = client.batch.jobs.get(job_id=batch_id)
@@ -202,7 +217,10 @@ class MistralProvider(BatchProvider):
     def cancel_batch(self, batch_id: str) -> dict[str, Any]:
         """Cancel Mistral batch job"""
         try:
-            from mistralai import Mistral
+            try:
+                from mistralai import Mistral
+            except ImportError:
+                from mistralai.client import Mistral
 
             client = Mistral(api_key=os.getenv("MISTRAL_API_KEY", ""))
             batch = client.batch.jobs.cancel(job_id=batch_id)
@@ -225,7 +243,11 @@ class MistralProvider(BatchProvider):
     def delete_batch(self, batch_id: str) -> dict[str, Any]:
         """Delete Mistral batch job"""
         try:
-            from mistralai import Mistral
+            try:
+                from mistralai import Mistral
+            except ImportError:
+                from mistralai.client import Mistral
+
 
             client = Mistral(api_key=os.getenv("MISTRAL_API_KEY", ""))
             # Mistral doesn't have a delete endpoint, so we'll return the batch info
@@ -241,7 +263,11 @@ class MistralProvider(BatchProvider):
     def list_batches(self, limit: int = 10) -> list[BatchJobInfo]:
         """List Mistral batch jobs"""
         try:
-            from mistralai import Mistral
+            try:
+                from mistralai import Mistral
+            except ImportError:
+                from mistralai.client import Mistral
+
 
             client = Mistral(api_key=os.getenv("MISTRAL_API_KEY", ""))
 
